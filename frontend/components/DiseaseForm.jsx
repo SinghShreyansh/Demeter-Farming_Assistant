@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 
-
 const DiseaseForm = () => {
   const [file, setFile] = useState(null);
   const [output, setOutput] = useState("");
@@ -28,10 +27,22 @@ const DiseaseForm = () => {
     await axios
       .post("http://127.0.0.1:5000/disease-predict2", data)
       .then(function (response) {
-        console.log(response);
-        // let newData = String(response.data.prediction);
-        // const formatted = newData.split("\n");
-        setOutput(response.data);
+        // console.log(response);
+        const formatted = response.data.how_to_use.split("\n");
+        function removeItem(array, item) {
+          return array.filter((i) => i !== item);
+        }
+        const withOutEmpty = removeItem(formatted, "");
+        // console.log(withOutEmpty);
+        const newData = response.data;
+        newData.how_to_use = withOutEmpty;
+        console.log(newData);
+        if (newData.title.toLowerCase().includes("healthy")) {
+          newData.isHealthy = true;
+        } else {
+          newData.isHealthy = false;
+        }
+        setOutput(newData);
         setIsLoading(false);
       })
       .catch(function (error) {
@@ -88,12 +99,57 @@ const DiseaseForm = () => {
       </form>
       {output ? (
         <div
-          class="mt-2 mx-6 p-4 mb-4 text-lg text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+          class="mt-2 mx-6 p-4 mb-4 text-lg text-green bg-white rounded-lg"
           role="alert"
         >
-          <div className="text-center text-2xl">
+          {/* <div className="text-center text-2xl">
             <span className="font-bold">Disease:</span> {output.title}
-          </div>
+          </div> */}
+
+          {output.isHealthy ? (
+            <div
+              class="bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md"
+              role="alert"
+            >
+              <div class="flex">
+                <div class="py-1">
+                  <svg
+                    class="fill-current h-6 w-6 text-green-500 mr-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                  </svg>
+                </div>
+                <div className="flex items-center">
+                  <p class="font-bold text-xl">Disease:</p>
+                  <p class="text-lg ml-4">{output.title}</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md"
+              role="alert"
+            >
+              <div class="flex">
+                <div class="py-1">
+                  <svg
+                    class="fill-current h-6 w-6 text-red-500 mr-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                  </svg>
+                </div>
+                <div className="flex items-center">
+                  <p class="font-bold text-xl">Disease:</p>
+                  <p class="text-lg ml-4">{output.title}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="mt-4">
             <span className="font-bold">Description:</span> {output.desc}
           </div>
@@ -118,6 +174,12 @@ const DiseaseForm = () => {
             >
               {output.buy_link}
             </a>
+          </div>
+          <div className="mt-4">
+            <span className="font-bold">How to use:</span>{" "}
+            {output.how_to_use.map((item) => {
+              return <p>{item}</p>;
+            })}
           </div>
         </div>
       ) : (
