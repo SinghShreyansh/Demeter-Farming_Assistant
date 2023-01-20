@@ -2,7 +2,7 @@ import React from "react";
 
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-export default function Navbar({ title }) {
+export default function Navbar({ title, image }) {
   return (
     <>
       {/* Navbar */}
@@ -19,12 +19,15 @@ export default function Navbar({ title }) {
 
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <div className="items-center flex">
+            <div className="items-center flex text-white mr-6 font-bold hover:text-gray-400 transition-all">
+              <a href="/api/auth/signout">Log Out</a>
+            </div>
+            <div className="items-center flex text-white">
               <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
                 <img
                   alt="..."
                   className="w-full rounded-full align-middle border-none shadow-lg"
-                  src="/img/team-1-800x800.jpg"
+                  src={image}
                 />
               </span>
             </div>

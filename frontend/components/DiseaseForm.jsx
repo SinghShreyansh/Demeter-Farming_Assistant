@@ -84,46 +84,46 @@ const DiseaseForm = () => {
             )}
           </button>
         </div>
-
-        {output ? (
-          <div
-            class="mt-2 p-4 mb-4 text-lg text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-            role="alert"
-          >
-            <div className="text-center text-2xl">
-              <span className="font-bold">Disease:</span> {output.title}
-            </div>
-            <div className="mt-4">
-              <span className="font-bold">Description:</span> {output.desc}
-            </div>
-            <div className="mt-4">
-              <span className="font-bold">Prevention Measures:</span>{" "}
-              {output.prevent}
-            </div>
-            <p className="mt-6 font-bold text-center text-2xl">Cure Measures</p>
-            <div className="flex justify-center mt-4">
-              <img src={output.simage} alt="" />
-            </div>
-            <div className="mt-4 text-center">
-              <span className="font-bold">Supplement Name:</span> {output.sname}
-            </div>
-
-            <div className="mt-4 text-center">
-              <span className="font-bold">Buy Now: </span>
-              <a
-                href={output.buy_link}
-                className="text-lightBlue-500 hover:text-lightBlue-600"
-              >
-                {output.buy_link}
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <img src="https://res.cloudinary.com/sarveshp46/image/upload/v1673158646/nothing-here_w38mzj.webp" />
-          </div>
-        )}
       </form>
+      {output ? (
+        <div
+          class="mt-2 mx-6 p-4 mb-4 text-lg text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+          role="alert"
+        >
+          <div className="text-center text-2xl">
+            <span className="font-bold">Disease:</span> {output.title}
+          </div>
+          <div className="mt-4">
+            <span className="font-bold">Description:</span> {output.desc}
+          </div>
+          <div className="mt-4">
+            <span className="font-bold">Prevention Measures:</span>{" "}
+            {output.prevent}
+          </div>
+          <p className="mt-6 font-bold text-center text-2xl">Cure Measures</p>
+          <div className="flex justify-center mt-4 w-48 mx-auto">
+            <img src={output.simage} alt="" />
+          </div>
+          <div className="mt-4 text-center">
+            <span className="font-bold">Supplement Name:</span> {output.sname}
+          </div>
+
+          <div className="mt-4 text-center">
+            <span className="font-bold">Buy Now: </span>
+            <a
+              href={output.buy_link}
+              target="_blank"
+              className="text-lightBlue-500 hover:text-lightBlue-600"
+            >
+              {output.buy_link}
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <img src="https://res.cloudinary.com/sarveshp46/image/upload/v1673158646/nothing-here_w38mzj.webp" />
+        </div>
+      )}
     </div>
   );
 };
