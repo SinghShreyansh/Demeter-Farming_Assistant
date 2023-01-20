@@ -8,6 +8,7 @@ const DiseaseForm = () => {
   const [output, setOutput] = useState("");
   const [imageSrc, setImageSrc] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChange = (event) => {
     setFile({
@@ -19,6 +20,7 @@ const DiseaseForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsDisabled(true);
     setIsLoading(true);
     let data = new FormData();
     console.log(file);
@@ -27,13 +29,12 @@ const DiseaseForm = () => {
     await axios
       .post("http://127.0.0.1:5000/disease-predict2", data)
       .then(function (response) {
-        // console.log(response);
+        setIsDisabled(false);
         const formatted = response.data.how_to_use.split("\n");
         function removeItem(array, item) {
           return array.filter((i) => i !== item);
         }
         const withOutEmpty = removeItem(formatted, "");
-        // console.log(withOutEmpty);
         const newData = response.data;
         newData.how_to_use = withOutEmpty;
         console.log(newData);
@@ -70,6 +71,7 @@ const DiseaseForm = () => {
               type="file"
               class="hidden"
               onChange={handleChange}
+              required
             />
           </label>
         </div>
@@ -79,10 +81,26 @@ const DiseaseForm = () => {
           </div>
         )}
 
-        <div className="text-center mt-6">
-          <button
+        <div className="flex justify-center mt-6">
+          {/* <button
             className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-48 ease-linear transition-all duration-150"
             type="submit"
+          >
+            {isLoading ? (
+              <ReactLoading
+                type="bars"
+                color="#ffffff"
+                height={25}
+                width={25}
+              />
+            ) : (
+              "Submit"
+            )}
+          </button> */}
+          <button
+            type="submit"
+            disabled={isDisabled}
+            className="w-96 h-12 flex justify-center items-center text-md text-white bg-blueGray-800 hover:bg-blueGray-800 transition-all font-medium rounded-lg px-5 py-2.5 text-center"
           >
             {isLoading ? (
               <ReactLoading
