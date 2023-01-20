@@ -20,7 +20,7 @@ export default function Navbar({ title, image }) {
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
             <div className="items-center flex text-white mr-6 font-bold hover:text-gray-400 transition-all">
-              <a href="/api/auth/signout">Log Out</a>
+              <a href="/api/auth/signout">LOG OUT</a>
             </div>
             <div className="items-center flex text-white">
               <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">

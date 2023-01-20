@@ -76,7 +76,7 @@ disease_info = pd.read_csv("disease_info.csv", encoding="cp1252")
 supplement_info = pd.read_csv("supplement_info.csv", encoding="cp1252")
 
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("models/plant_disease_model_1_latest.pt"))
+model.load_state_dict(torch.load("models/diseaseV2.pt"))
 model.eval()
 
 
