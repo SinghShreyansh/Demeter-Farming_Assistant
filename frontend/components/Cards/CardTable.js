@@ -2,26 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function CardTable({ color, output }) {
-  console.log(output.crop_name);
-  const tableRow = output.crop_name.map((item, index) => {
-    return (
-      <tr key={index}>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          {index + 1}
-        </td>
-        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-          <span
-            className={
-              "font-bold " +
-              +(color === "light" ? "text-blueGray-600" : "text-white")
-            }
-          >
-            {item}
-          </span>
-        </th>
-      </tr>
-    );
-  });
+  // console.log(output.crop_name);
+  // const tableRow = output.crop_name.map((item, index) => {
+  //   return (
+  //     <tr key={index}>
+  //       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+  //         {index + 1}
+  //       </td>
+  //       <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+  //         <span
+  //           className={
+  //             "font-bold " +
+  //             +(color === "light" ? "text-blueGray-600" : "text-white")
+  //           }
+  //         >
+  //           {item}
+  //         </span>
+  //       </th>
+  //     </tr>
+  //   );
+  // });
+  Object.keys(output.crop_name);
+
   return (
     <>
       <div
@@ -111,7 +113,7 @@ export default function CardTable({ color, output }) {
               </tr>
             </thead>
             <tbody>
-              {tableRow}
+              {/* {tableRow} */}
               {/* <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                   <img
