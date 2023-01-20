@@ -1,0 +1,35 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@headlessui/react": "^1.7.3",
+    "@kommunicate/kommunicate-chatbot-plugin": "^0.0.5",
+    "@popperjs/core": "2.9.1",
+    "@tailwindcss/forms": "0.2.1",
+    "axios": "^0.27.2",
+    "chart.js": "2.9.4",
+    "gulp": "^3.9.1",
+    "gulp-append-prepend": "1.0.8",
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-loading": "^2.0.3",
+    "react-scripts": "^5.0.1",
+    "tailwindcss": "^2.2.19"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8"
+  }
+}

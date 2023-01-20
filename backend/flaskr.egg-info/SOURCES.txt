@@ -1,0 +1,8 @@
+MANIFEST.in
+setup.py
+flaskr.egg-info/PKG-INFO
+flaskr.egg-info/SOURCES.txt
+flaskr.egg-info/dependency_links.txt
+flaskr.egg-info/not-zip-safe
+flaskr.egg-info/requires.txt
+flaskr.egg-info/top_level.txt
