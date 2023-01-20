@@ -18,11 +18,94 @@ from crop_predict import Crop_Predict
 import os
 from PIL import Image
 import torchvision.transforms.functional as TF
-import CNN
-import openai
+# import CNN
+ 
+
+# fruit disease prediction
+
+import tensorflow as tf
+import tensorflow as tf
+
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.2
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
+# Keras
+from tensorflow.keras.applications.resnet50 import preprocess_input
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
+
+# Model saved with Keras model.save()
+MODEL_PATH ='./test.h5'
+
+# Load your trained model
+model = load_model(MODEL_PATH)
+
+def model_predict(img_path, model):
+    print(img_path)
+    img = image.load_img(img_path, target_size=(512, 512))
+    # Preprocessing the image
+    x = image.img_to_array(img)
+    # x = np.true_divide(x, 255)
+    ## Scaling
+    x=x/255
+    x = np.expand_dims(x, axis=0)
+   
+
+    # Be careful how your trained model deals with the input
+    # otherwise, it won't make correct prediction!
+   # x = preprocess_input(x)
+
+    preds = model.predict(x)
+    preds=np.argmax(preds, axis=1)
+    if preds==0:
+        preds="Brownspot"
+    elif preds==1:
+        preds="Healthy"
+    else :
+        preds="Woodiness"
+
+        
+    
+    
+    return preds
+
+
+@app.route('/predict-fruit-disease', methods=["POST"])
+def upload():
+    if request.method == "POST":
+        # Get the file from post request
+        print("dfdsf")
+        # print(request.files)
+        # if "file" not in request.files:
+        #     return "file not found"
+        file = request.files.get("file")
+        
+        basepath = os.path.dirname(__file__)
+        file_path = os.path.join(basepath, 'uploads', secure_filename(file.filename))
+        file.save(file_path)
+
+        # Make prediction
+        preds = model_predict(file_path, model)
+        result=preds
+        print(result)
+        return result
+
+        # # Save the file to ./uploads
+        
+        # # f.save(file_path)
+
+        # # Make prediction
+       
+    return "hello"
+
 
 # Loading plant disease classification model
 disease_classes = [
@@ -76,9 +159,9 @@ disease_model.eval()
 disease_info = pd.read_csv("disease_info.csv", encoding="cp1252")
 supplement_info = pd.read_csv("supplement_info.csv", encoding="cp1252")
 
-model = CNN.CNN(39)
-model.load_state_dict(torch.load("models/diseaseV2.pt"))
-model.eval()
+# model = CNN.CNN(39)
+# model.load_state_dict(torch.load("models/diseaseV2.pt"))
+# model.eval()
 
 
 def prediction(image_path):

@@ -123,5 +123,5 @@ class Crop_Predict(object):
                     if row["temp"] >= temp2 and row["temp"] <= temp1:
                         if row["climate"] == climate:
                             lt.append(row["Crop"])
-
+            
             return lt
