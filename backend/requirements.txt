@@ -1,0 +1,16 @@
+flask
+fpdf
+pandas
+sklearn
+fpdf
+numpy
+numpy
+torch
+pandas
+flask_cors
+torchvision
+Flask
+scikit-learn
+requests
+Pillow
+gunicorn == 20.0.4
