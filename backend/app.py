@@ -19,6 +19,7 @@ import os
 from PIL import Image
 import torchvision.transforms.functional as TF
 import CNN
+import openai
 
 app = Flask(__name__)
 CORS(app)
@@ -248,6 +249,14 @@ def submit():
         supplement_image_url = supplement_info["supplement image"][pred]
         supplement_buy_link = supplement_info["buy link"][pred]
         print(pred)
+        openai.api_key = "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"
+        instructions = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=f"how to use {supplement_name}",
+            max_tokens=200,
+            temperature=0,
+        )
+        print(instructions)
         return {
             "title": title,
             "desc": description,
@@ -257,6 +266,7 @@ def submit():
             "sname": supplement_name,
             "simage": supplement_image_url,
             "buy_link": supplement_buy_link,
+            "how_to_use": instructions.choices[0].text,
         }
 
 

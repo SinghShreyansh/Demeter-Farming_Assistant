@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 
-
 const DiseaseForm = () => {
   const [file, setFile] = useState(null);
   const [output, setOutput] = useState("");
@@ -28,10 +27,17 @@ const DiseaseForm = () => {
     await axios
       .post("http://127.0.0.1:5000/disease-predict2", data)
       .then(function (response) {
-        console.log(response);
-        // let newData = String(response.data.prediction);
-        // const formatted = newData.split("\n");
-        setOutput(response.data);
+        // console.log(response);
+        const formatted = response.data.how_to_use.split("\n");
+        function removeItem(array, item) {
+          return array.filter((i) => i !== item);
+        }
+        const withOutEmpty = removeItem(formatted, "");
+        // console.log(withOutEmpty);
+        const newData = response.data;
+        newData.how_to_use = withOutEmpty;
+        console.log(newData);
+        setOutput(newData);
         setIsLoading(false);
       })
       .catch(function (error) {
@@ -118,6 +124,12 @@ const DiseaseForm = () => {
             >
               {output.buy_link}
             </a>
+          </div>
+          <div className="mt-4">
+            <span className="font-bold">How to use:</span>{" "}
+            {output.how_to_use.map((item) => {
+              return <p>{item}</p>;
+            })}
           </div>
         </div>
       ) : (
