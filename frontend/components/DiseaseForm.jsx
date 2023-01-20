@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 
+
 const DiseaseForm = () => {
   const [file, setFile] = useState(null);
   const [output, setOutput] = useState("");
