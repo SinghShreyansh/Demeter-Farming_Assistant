@@ -1,6 +1,7 @@
 import React from "react";
 
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import Link from "next/link";
 
 export default function Navbar({ title, image }) {
   return (
@@ -20,7 +21,9 @@ export default function Navbar({ title, image }) {
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
             <div className="items-center flex text-white mr-6 font-bold hover:text-gray-400 transition-all">
-              <a href="/api/auth/signout">LOG OUT</a>
+              <Link href="/api/auth/signout">
+                <a>LOG OUT</a>
+              </Link>
             </div>
             <div className="items-center flex text-white">
               <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">

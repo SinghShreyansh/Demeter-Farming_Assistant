@@ -188,6 +188,7 @@ const DiseaseForm = () => {
             <a
               href={output.buy_link}
               target="_blank"
+              rel="noreferrer"
               className="text-lightBlue-500 hover:text-lightBlue-600"
             >
               {output.buy_link}
@@ -195,8 +196,8 @@ const DiseaseForm = () => {
           </div>
           <div className="mt-4">
             <span className="font-bold">How to use:</span>{" "}
-            {output.how_to_use.map((item) => {
-              return <p>{item}</p>;
+            {output.how_to_use.map((item, index) => {
+              return <p key={index}>{item}</p>;
             })}
           </div>
         </div>
