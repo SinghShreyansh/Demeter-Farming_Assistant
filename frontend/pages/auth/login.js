@@ -5,10 +5,11 @@ import { getProviders, signIn } from "next-auth/react";
 // layout for page
 
 import Auth from "layouts/Auth.js";
+import Layout from "components/Layout";
 
 export default function Login({ providers }) {
   return (
-    <>
+    <Layout title="Login / DEMETER">
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
@@ -124,7 +125,7 @@ export default function Login({ providers }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 

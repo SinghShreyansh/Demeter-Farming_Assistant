@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "components/Layout";
 
 // layout for page
 
@@ -6,7 +7,7 @@ import Auth from "layouts/Auth.js";
 
 export default function Register() {
   return (
-    <>
+    <Layout title="Register / DEMETER">
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
@@ -116,7 +117,7 @@ export default function Register() {
           </div>
         </div>
       </div>
-    </>
+      </Layout>
   );
 }
 
