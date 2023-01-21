@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 from sklearn.utils import shuffle
 from sklearn.preprocessing import LabelEncoder
+import requests
+import datetime
 
 
 import openai
@@ -40,8 +42,36 @@ class Crop_Predict(object):
             P = request.json["P"]
             K = request.json["K"]
             pH = request.json["PH"]
-            temp = request.json["Temp"]
-            climate = request.json["Climate"]
+            location = request.json["Location"]
+            print(location)
+
+            # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
+            api_key = "25a7391eb816518d0639ab3f83a31f42"
+            url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
+            response = requests.get(url)
+            weather_data = response.json()
+
+            print((float(weather_data["list"][0]["main"]["temp"]) - 273.15))
+            Temp = float(weather_data["list"][0]["main"]["temp"]) - 273.15
+
+            # Get the current month
+            month = datetime.datetime.now().month
+
+            # Get the current hemisphere
+            # You can either hardcode the hemisphere as 'north' or 'south'
+            # or you can use the latitude of the location to determine the hemisphere
+            hemisphere = 'north'
+
+            # Determine the season based on the month and hemisphere
+            if (month >= 3 and month <= 6) and hemisphere == 'north':
+                climate = 1
+            elif (month >= 7 and month <= 10) and hemisphere == 'north':
+                climate = 3
+            elif (month ==11 or month ==12 or month ==1 or month==2) and hemisphere == 'north':
+                climate = 2
+
+
+
 
             # if (
             #     len(city_name) == 0
@@ -97,15 +127,10 @@ class Crop_Predict(object):
 
             # else:
             print(N, P, K, pH)
-            temp = 20
+            temp = Temp
             temp1 = temp + 10
             temp2 = temp - 7
-            if climate == "summer":
-                climate = 1
-            if climate == "winter":
-                climate = 2
-            if climate == "rainy":
-                climate = 3
+
             columns = ["N", "P", "K", "pH", "temp", "climate"]
             values = np.array([N, P, K, pH, temp, climate])
             pred = pd.DataFrame(values.reshape(-1, len(values)), columns=columns)
