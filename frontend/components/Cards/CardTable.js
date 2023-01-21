@@ -5,11 +5,11 @@ export default function CardTable({ color, output }) {
   console.log(output.crop_name);
   const tableRow = output.crop_name.map((item, index) => {
     return (
-      <tr key={index}>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+      <tr key={index} className="text-md">
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 whitespace-nowrap p-4">
           {index + 1}
         </td>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-left">
           <span
             className={
               "font-bold " +
@@ -19,7 +19,7 @@ export default function CardTable({ color, output }) {
             {item.name}
           </span>
         </td>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-left">
           <span
             className={
               "font-bold " +

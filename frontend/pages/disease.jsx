@@ -3,7 +3,7 @@ import { signIn, useSession, getSession } from "next-auth/react";
 import Admin from "layouts/Admin.js";
 import DiseaseForm from "components/DiseaseForm";
 
-export default function Disease({}) {
+export default function Disease() {
   const { data: session, status } = useSession();
   console.log(session);
   const [loading, setLoading] = useState(true);
@@ -40,19 +40,6 @@ export default function Disease({}) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   let userId = null;
-  // if (session) {
-  //   await axios
-  //     .get(`${domainUrl}/api/user-email?email=${session.user.email}`)
-  //     .then((res) => {
-  //       userId = res.data._id;
-  //       if (res.data.isAdmin) {
-  //         isAdmin = res.data.isAdmin;
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-  // }
 
   return {
     props: {

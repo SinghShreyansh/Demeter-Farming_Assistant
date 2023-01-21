@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+#google_translate_element {
+  height: 25px;
+}
+
+#google_translate_element select {
+  background: rgb(248, 250, 252);
+  color: black;
+  border: solid rgba(148, 163, 184) 2px;
+  border-radius: 3px;
+  margin: 0;
+  padding: 0.1rem 0.3rem;
+  /* padding: 6px 8px; */
+}
+
+/*google translate link | logo */
+.goog-logo-link {
+  display: none !important;
+}
+.goog-te-gadget {
+  color: transparent !important;
+}
+
+/* google translate banner-frame */
+
+/* .goog-te-banner-frame {
+  display: none !important;
+}
+
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+} */
+
 /*! tailwindcss v2.0.4 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */

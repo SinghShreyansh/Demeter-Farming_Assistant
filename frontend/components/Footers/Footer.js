@@ -2,26 +2,6 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 
 export default function Footer() {
-  const googleTranslateElementInit = () => {
-    new window.google.translate.TranslateElement(
-      {
-        pageLanguage: "en",
-        autoDisplay: false,
-      },
-      "google_translate_element"
-    );
-  };
-  useEffect(() => {
-    var addScript = document.createElement("script");
-    addScript.setAttribute(
-      "src",
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-    );
-    document.body.appendChild(addScript);
-    window.googleTranslateElementInit = googleTranslateElementInit;
-    console.log("kjnkas");
-  }, []);
-
   return (
     <>
       <footer className="relative bg-blueGray-200 pt-8 pb-6">
@@ -123,10 +103,7 @@ export default function Footer() {
                     </li>
                   </ul>
                 </div>
-                <div
-                  id="google_translate_element"
-                  className="w-full lg:w-4/12 px-4 ml-auto"
-                ></div>
+
                 {/* <div className="w-full lg:w-4/12 px-4">
                   <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
                     Other Resources

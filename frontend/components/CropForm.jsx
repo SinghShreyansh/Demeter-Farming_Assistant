@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import CardTable from "components/Cards/CardTable.js";
+import ReactLoading from "react-loading";
 
 const CropForm = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const CropForm = () => {
     PH: 0,
     Climate: "summer",
   });
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [output, setOutput] = useState(null);
   const handleChange = (event) => {
@@ -24,6 +27,8 @@ const CropForm = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsDisabled(true);
+    setIsLoading(true);
     console.log(formData);
     let data = null;
 
@@ -37,6 +42,8 @@ const CropForm = () => {
         Climate: formData.Climate,
       })
       .then(function (response) {
+        setIsDisabled(false);
+        setIsLoading(false);
         data = response.data;
         console.log(data);
         setOutput(data);
@@ -237,20 +244,33 @@ const CropForm = () => {
             </div>
           </div>
 
-          <div className="text-center mt-6">
-            <button
+          <div className="flex justify-center mt-6">
+            {/* <button
               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
               type="submit"
             >
               Submit
+            </button> */}
+            <button
+              type="submit"
+              disabled={isDisabled}
+              className="w-96 h-12 flex justify-center items-center text-md text-white bg-blueGray-800 hover:bg-blueGray-800 transition-all font-medium rounded-lg px-5 py-2.5 text-center"
+            >
+              {isLoading ? (
+                <ReactLoading
+                  type="bars"
+                  color="#ffffff"
+                  height={25}
+                  width={25}
+                />
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
 
           {output ? (
-            <div
-              class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-              role="alert"
-            >
+            <div class="mt-2 p-4 mb-4 text-sm rounded-lg" role="alert">
               <CardTable output={output} />
             </div>
           ) : (

@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "./Layout";
 import { useState } from "react";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 const FertilizerForm = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const FertilizerForm = () => {
     K: 0,
     P: 0,
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [output, setOutput] = useState(null);
   const handleChange = (event) => {
     setFormData((prevState) => {
@@ -25,6 +28,8 @@ const FertilizerForm = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsDisabled(true);
+    setIsLoading(true);
     console.log(formData);
     let data = null;
 
@@ -40,6 +45,8 @@ const FertilizerForm = () => {
         P: Number(formData.P),
       })
       .then(function (response) {
+        setIsDisabled(false);
+        setIsLoading(false);
         data = response.data;
         console.log(data);
         setOutput(data);
@@ -469,12 +476,28 @@ const FertilizerForm = () => {
             </select>
           </div>
 
-          <div className="text-center mt-6">
-            <button
+          <div className="flex justify-center mt-6">
+            {/* <button
               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
               type="submit"
             >
               Submit
+            </button> */}
+            <button
+              type="submit"
+              disabled={isDisabled}
+              className="w-96 h-12 flex justify-center items-center text-md text-white bg-blueGray-800 hover:bg-blueGray-800 transition-all font-medium rounded-lg px-5 py-2.5 text-center"
+            >
+              {isLoading ? (
+                <ReactLoading
+                  type="bars"
+                  color="#ffffff"
+                  height={25}
+                  width={25}
+                />
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
 

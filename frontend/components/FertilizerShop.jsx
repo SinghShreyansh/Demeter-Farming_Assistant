@@ -48,10 +48,16 @@ const FertilizerShop = () => {
             />
           </div>
 
-          <div className="text-center mt-6">
-            <button
+          <div className="flex justify-center my-6">
+            {/* <button
               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
               type="submit"
+            >
+              Submit
+            </button> */}
+            <button
+              type="submit"
+              className="w-96 h-12 flex justify-center items-center text-md text-white bg-blueGray-800 hover:bg-blueGray-800 transition-all font-medium rounded-lg px-5 py-2.5 text-center"
             >
               Submit
             </button>

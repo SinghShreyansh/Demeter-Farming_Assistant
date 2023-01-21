@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-// components
-
-import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 
 export default function Navbar(props) {
+  const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: "en",
+        autoDisplay: false,
+      },
+      "google_translate_element"
+    );
+  };
+  useEffect(() => {
+    var addScript = document.createElement("script");
+    addScript.setAttribute(
+      "src",
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    );
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+    console.log("kjnkas");
+  }, []);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -96,6 +112,12 @@ export default function Navbar(props) {
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
                 </Link>
+              </li>
+              <li className="flex items-center">
+                <div
+                  className="px-3 text-xs uppercase font-bold"
+                  id="google_translate_element"
+                ></div>
               </li>
 
               {/* <li className="flex items-center">
