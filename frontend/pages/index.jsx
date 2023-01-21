@@ -24,7 +24,7 @@ export default function Index() {
               </p>
               <div className="mt-12">
                 <Link href="/disease">
-                  <a className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-400 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
+                  <a className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-800 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                     Get started
                   </a>
                 </Link>
@@ -43,7 +43,7 @@ export default function Index() {
         </div>
         <img
           className="absolute top-0 b-auto right-0 pt-12 sm:w-6/12 -mt-16 sm:mt-0 w-100 max-h-860-px"
-          src="https://wallpapercave.com/wp/wp3106251.jpg"
+          src="/img/pattern_nextjs.png"
           alt="..."
         />
       </section>
@@ -516,7 +516,7 @@ export default function Index() {
               </p>
               <div className="sm:block flex flex-col mt-10">
                 <Link href="/disease">
-                  <a className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-400 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
+                  <a className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-800 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                     Get started
                   </a>
                 </Link>
