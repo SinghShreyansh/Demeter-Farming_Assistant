@@ -5,10 +5,10 @@ import Tables from "pages/admin/predict_table";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
-    location : "mumbai"
+    location: "mumbai",
   });
 
-  const [output, setOutput] = useState([]);
+  const [output, setOutput] = useState(null);
 
   const handleChange = (event) => {
     setFormData((prevState) => {
@@ -64,7 +64,6 @@ const PredictionForm = () => {
             </div>
           </div>
 
-
           <div className="text-center mt-6">
             <button
               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
@@ -75,12 +74,8 @@ const PredictionForm = () => {
           </div>
 
           {output ? (
-            <div
-              class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-              role="alert"
-            >
-              <span class="font-medium">Output:</span>
-             <Tables TableData={output}/>
+            <div class="mt-2 p-4 mb-4 text-sm rounded-lg" role="alert">
+              <Tables TableData={output} />
             </div>
           ) : (
             <div className="flex justify-center">

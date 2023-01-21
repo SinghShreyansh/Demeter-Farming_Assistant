@@ -18,93 +18,91 @@ from crop_predict import Crop_Predict
 import os
 from PIL import Image
 import torchvision.transforms.functional as TF
-# import CNN
+import CNN
+import openai
 
 
 # fruit disease prediction
 
-import tensorflow as tf
-import tensorflow as tf
+# import tensorflow as tf
 
-from tensorflow.compat.v1 import ConfigProto
-from tensorflow.compat.v1 import InteractiveSession
+# from tensorflow.compat.v1 import ConfigProto
+# from tensorflow.compat.v1 import InteractiveSession
 
-config = ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.2
-config.gpu_options.allow_growth = True
-session = InteractiveSession(config=config)
-# Keras
-from tensorflow.keras.applications.resnet50 import preprocess_input
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-from werkzeug.utils import secure_filename
+# config = ConfigProto()
+# config.gpu_options.per_process_gpu_memory_fraction = 0.2
+# config.gpu_options.allow_growth = True
+# session = InteractiveSession(config=config)
+# # Keras
+# from tensorflow.keras.applications.resnet50 import preprocess_input
+# from tensorflow.keras.models import load_model
+# from tensorflow.keras.preprocessing import image
+# from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
 
 # Model saved with Keras model.save()
-MODEL_PATH ='./test.h5'
+# MODEL_PATH ='./test.h5'
 
 # Load your trained model
-model = load_model(MODEL_PATH)
+# model = load_model(MODEL_PATH)
 
-def model_predict(img_path, model):
-    print(img_path)
-    img = image.load_img(img_path, target_size=(512, 512))
-    # Preprocessing the image
-    x = image.img_to_array(img)
-    # x = np.true_divide(x, 255)
-    ## Scaling
-    x=x/255
-    x = np.expand_dims(x, axis=0)
-
-
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
-   # x = preprocess_input(x)
-
-    preds = model.predict(x)
-    preds=np.argmax(preds, axis=1)
-    if preds==0:
-        preds="Brownspot"
-    elif preds==1:
-        preds="Healthy"
-    else :
-        preds="Woodiness"
+# def model_predict(img_path, model):
+#     print(img_path)
+#     img = image.load_img(img_path, target_size=(512, 512))
+#     # Preprocessing the image
+#     x = image.img_to_array(img)
+#     # x = np.true_divide(x, 255)
+#     ## Scaling
+#     x=x/255
+#     x = np.expand_dims(x, axis=0)
 
 
+#     # Be careful how your trained model deals with the input
+#     # otherwise, it won't make correct prediction!
+#    # x = preprocess_input(x)
+
+#     preds = model.predict(x)
+#     preds=np.argmax(preds, axis=1)
+#     if preds==0:
+#         preds="Brownspot"
+#     elif preds==1:
+#         preds="Healthy"
+#     else :
+#         preds="Woodiness"
 
 
-    return preds
+#     return preds
 
 
-@app.route('/predict-fruit-disease', methods=["POST"])
-def upload():
-    if request.method == "POST":
-        # Get the file from post request
-        print("dfdsf")
-        # print(request.files)
-        # if "file" not in request.files:
-        #     return "file not found"
-        file = request.files.get("file")
+# @app.route('/predict-fruit-disease', methods=["POST"])
+# def upload():
+#     if request.method == "POST":
+#         # Get the file from post request
+#         print("dfdsf")
+#         # print(request.files)
+#         # if "file" not in request.files:
+#         #     return "file not found"
+#         file = request.files.get("file")
 
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(basepath, 'uploads', secure_filename(file.filename))
-        file.save(file_path)
+#         basepath = os.path.dirname(__file__)
+#         file_path = os.path.join(basepath, 'uploads', secure_filename(file.filename))
+#         file.save(file_path)
 
-        # Make prediction
-        preds = model_predict(file_path, model)
-        result=preds
-        print(result)
-        return result
+#         # Make prediction
+#         preds = model_predict(file_path, model)
+#         result=preds
+#         print(result)
+#         return result
 
-        # # Save the file to ./uploads
+#         # # Save the file to ./uploads
 
-        # # f.save(file_path)
+#         # # f.save(file_path)
 
-        # # Make prediction
+#         # # Make prediction
 
-    return "hello"
+#     return "hello"
 
 
 # Loading plant disease classification model
@@ -159,9 +157,9 @@ disease_model.eval()
 disease_info = pd.read_csv("disease_info.csv", encoding="cp1252")
 supplement_info = pd.read_csv("supplement_info.csv", encoding="cp1252")
 
-# model = CNN.CNN(39)
-# model.load_state_dict(torch.load("models/diseaseV2.pt"))
-# model.eval()
+model = CNN.CNN(39)
+model.load_state_dict(torch.load("models/diseaseV2.pt"))
+model.eval()
 
 
 def prediction(image_path):
@@ -263,7 +261,6 @@ def result2():
         del to_predict_list["location"]
         to_predict_list = list(to_predict_list.values())
 
-
         # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
         api_key = "25a7391eb816518d0639ab3f83a31f42"
         url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
@@ -280,21 +277,85 @@ def result2():
         to_predict_list = list(map(int, to_predict_list))
 
         ans = FertilizerPredictor(to_predict_list)
-        if ans == 0:
-            return "10-26-26"
-        elif ans == 1:
-            return "14-35-14"
-        elif ans == 2:
-            return "17-17-17"
-        elif ans == 3:
-            return "20-20"
-        elif ans == 4:
-            return "28-28"
-        elif ans == 5:
-            return "DAP"
-        else:
-            return "Urea"
 
+        fertilizer_info = {"name": "", "img": ""}
+        if ans == 0:
+            response = openai.Image.create(
+                prompt="10-26-26 fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "10-26-26",
+                "img": response["data"][0]["url"],
+                "how_to_use": "To use 10-26-26 fertilizer, you will need to mix it with water according to the instructions on the package. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of 10-26-26 fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7.",
+            }
+        elif ans == 1:
+            response = openai.Image.create(
+                prompt="14-35-14 fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "14-35-14",
+                "img": response["data"][0]["url"],
+                "how_to_use": "14-35-14 is a type of water-soluble fertilizer that contains 14% nitrogen, 35% phosphorous, and 14% potassium. To use it, you will need to mix it with water according to the instructions on the label. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of 14-35-14 fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used properly.",
+            }
+        elif ans == 2:
+            response = openai.Image.create(
+                prompt="17-17-17 fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "17-17-17",
+                "img": response["data"][0]["url"],
+                "how_to_use": "7-17-17 fertilizer is a water-soluble fertilizer that contains 7% nitrogen, 17% phosphorous, and 17% potassium. To use it, you will need to mix it with water according to the instructions on the label. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of 7-17-17 fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used properly. It's important to keep in mind that 7-17-17 ratio is lower in nitrogen than other ratio, that's why it's a good idea to use this fertilizer when the plant is in the blooming or fruiting stage and not in the vegetative stage.",
+            }
+        elif ans == 3:
+            response = openai.Image.create(
+                prompt="20-20 fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "20-20",
+                "img": response["data"][0]["url"],
+                "how_to_use": "20-20 fertilizer is a water-soluble fertilizer that contains equal amounts of Nitrogen (N) and Potassium (K) which is 20% each. It's important to note that this fertilizer does not contain any Phosphorus (P). To use it, you will need to mix it with water according to the instructions on the label. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of 20-20 fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used properly. It's important to keep in mind that 20-20 ratio is higher in Potassium (K) than Nitrogen(N), that's why it's a good idea to use this fertilizer when the plant is in the blooming or fruiting stage and not in the vegetative stage.",
+            }
+        elif ans == 4:
+            response = openai.Image.create(
+                prompt="28-28 fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "28-28",
+                "img": response["data"][0]["url"],
+                "how_to_use": "28-28 fertilizer is a water-soluble fertilizer that contains equal amounts of Nitrogen (N) and Potassium (K) which is 28% each. It's important to note that this fertilizer does not contain any Phosphorus (P). To use it, you will need to mix it with water according to the instructions on the label. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of 28-28 fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used improperly. It's important to keep in mind that 28-28 ratio is higher in Nitrogen (N) and Potassium (K) than other ratios, that's why it's a good idea to use this fertilizer when the plant is in the vegetative stage and not in the blooming or fruiting stage. It's also important to note that this fertilizer does not contain Phosphorus (P), which is important for root growth and seed production, so you may need to supplement with additional fertilizer that contains P.",
+            }
+        elif ans == 5:
+            response = openai.Image.create(
+                prompt="DAP fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "DAP",
+                "img": response["data"][0]["url"],
+                "how_to_use": "DAP (diammonium phosphate) fertilizer is a water-soluble fertilizer that contains 18% Nitrogen (N) and 46% Phosphorus (P) . To use it, you will need to mix it with water according to the instructions on the label. The package will have a recommended mixing ratio, such as 1 tablespoon per gallon of water. For example, if you want to make a gallon of solution and package says to use 1 tablespoon per gallon, you would need to use 1 tablespoon of DAP fertilizer and 1 gallon of water. Then you can use the solution to water your plants or apply it to the foliage. It's important to note that different plants have different needs, and the amount of fertilizer you use should be adjusted accordingly. Also, be sure to not over-fertilize, as it can burn the plants. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used improperly. It's important to keep in mind that DAP is high in Phosphorus (P) than Nitrogen(N), that's why it's a good idea to use this fertilizer when the plant is in the blooming or fruiting stage and not in the vegetative stage.",
+            }
+        else:
+            response = openai.Image.create(
+                prompt="Urea fertilizer",
+                n=1,
+                size="256x256",
+            )
+            return {
+                "name": "Urea",
+                "img": response["data"][0]["url"],
+                "how_to_use": "Urea is a type of nitrogen fertilizer that is commonly used in agriculture. It is typically applied in granular form, although it can also be found in liquid or pellet form. To use urea fertilizer, you will need to spread it evenly over the soil and then till or rake it into the top few inches of soil. The recommended application rate will vary depending on the type of crop you are growing and the stage of growth it is in, so it's important to consult the instructions on the package or consult with your local agricultural extension agent. It's recommended to apply Urea fertilizer when the soil is moist and the weather is mild, in order to avoid loss of nitrogen due to volatilization. It's also important to note that Urea fertilizer should not be applied to dry soil or to the foliage of plants, as this can cause damage. It's also a good idea to check the pH level of your soil and adjust it if necessary. As a general rule, most plants prefer a pH between 6 and 7. Be sure to follow the instructions on the label and use caution when handling any fertilizer, as they can be harmful if not used properly.",
+            }
 
 
 @app.route("/weather-predict", methods=["POST"])
