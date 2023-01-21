@@ -20,6 +20,7 @@ from PIL import Image
 import torchvision.transforms.functional as TF
 import CNN
 import openai
+import datetime
 
 
 # fruit disease prediction
@@ -467,9 +468,31 @@ def forecast():
             }
         )
 
+    month = datetime.datetime.now().month
+    hemisphere = "north"
+
+    # Determine the season based on the month and hemisphere
+    if (month >= 3 and month <= 6) and hemisphere == "north":
+        climate = "summer"
+    elif (month >= 7 and month <= 10) and hemisphere == "north":
+        climate = "rainy"
+    elif (
+        month == 11 or month == 12 or month == 1 or month == 2
+    ) and hemisphere == "north":
+        climate = "winter"
+
+    temperature = forecast[0]["temperature"]
+    openai.api_key = "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"
+    instructions = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=f"aggricultural conditions based on {temperature} kelvin and {climate} climate",
+        max_tokens=1000,
+        temperature=0,
+    )
+    analysis = instructions.choices[0].text
     forecast = json.dumps(forecast)
     # Return the forecast to the user
-    return forecast
+    return [forecast, analysis]
 
 
 if __name__ == "__main__":

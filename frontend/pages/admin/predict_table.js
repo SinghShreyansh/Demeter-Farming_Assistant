@@ -8,12 +8,17 @@ import TableComponent from "components/Cards/TableComponent.js";
 
 import Admin from "layouts/Admin.js";
 
-export default function Tables({TableData}) {
+export default function Tables({ TableData }) {
   return (
     <>
-      <div className="flex flex-wrap mt-4">
-        <div className="w-full mb-12 px-4">
-          <TableComponent color="dark" TableData={TableData}/>
+      <div className="flex flex-wrap">
+        {" "}
+        <div className="text-lg">
+          <p className="font-bold">Analysis: </p>
+          <p>{TableData[1]}</p>
+        </div>
+        <div className="w-full mb-12 px-4 mt-4">
+          <TableComponent color="dark" TableData={TableData} />
         </div>
       </div>
     </>

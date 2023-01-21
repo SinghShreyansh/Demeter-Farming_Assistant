@@ -11,7 +11,7 @@ export default function Navbar({ title, image }) {
         <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
           <a
-            className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+            className="text-white text-lg uppercase hidden lg:inline-block font-bold"
             href="/"
             onClick={(e) => e.preventDefault()}
           >
@@ -20,7 +20,7 @@ export default function Navbar({ title, image }) {
 
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <div className="items-center flex text-white mr-6 font-bold hover:text-gray-400 transition-all">
+            <div className="items-center flex text-white mr-6 font-bold hover:text-gray-100 transition-all">
               <Link href="/api/auth/signout">
                 <a>LOG OUT</a>
               </Link>

@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 
 export default function TableComponent({ color, TableData }) {
   console.log(TableData);
-  const tableRow = TableData.map((item, index) => {
+  const tableRow = JSON.parse(TableData[0]).map((item, index) => {
     return (
       <tr key={index}>
-        <td className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }>
+        <td
+          className={
+            "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+            (color === "light"
+              ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+          }
+        >
           <span
             className={
               "font-bold " +
@@ -20,30 +22,36 @@ export default function TableComponent({ color, TableData }) {
           >
             {item.date}
           </span>
-          </td>
-        <td className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }>
-        <span
+        </td>
+        <td
+          className={
+            "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+            (color === "light"
+              ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+          }
+        >
+          <span
             className={
               "font-bold " +
               +(color === "light" ? "text-blueGray-600" : "text-white")
             }
           >
             {parseFloat(Number(item.temperature) - 273).toFixed(2) + "  ºC"}
-            <span style={{"marginRight":"2px"}}>{item.main=="Clouds"?"🌤️":"☀️"}</span>
-
+            <span style={{ marginRight: "2px" }}>
+              {item.main == "Clouds" ? "🌤️" : "☀️"}
+            </span>
           </span>
-          </td>
-        <td className={"px-6 align-middle border border-solid py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }>
-        <span
+        </td>
+        <td
+          className={
+            "px-6 align-middle border border-solid py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+            (color === "light"
+              ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+          }
+        >
+          <span
             className={
               "font-bold " +
               +(color === "light" ? "text-blueGray-600" : "text-white")
@@ -51,13 +59,16 @@ export default function TableComponent({ color, TableData }) {
           >
             {item.humidity + " g.m-3"}
           </span>
-          </td>
-        <td className={"px-6 align-middle border border-solid py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }>
-         <span
+        </td>
+        <td
+          className={
+            "px-6 align-middle border border-solid py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+            (color === "light"
+              ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+          }
+        >
+          <span
             className={
               "font-bold " +
               +(color === "light" ? "text-blueGray-600" : "text-white")
@@ -65,11 +76,7 @@ export default function TableComponent({ color, TableData }) {
           >
             {item.wind + " m/s"}
           </span>
-          </td>
-
-
-
-
+        </td>
       </tr>
     );
   });
