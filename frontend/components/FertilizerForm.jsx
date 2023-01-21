@@ -6,8 +6,7 @@ import ReactLoading from "react-loading";
 
 const FertilizerForm = () => {
   const [formData, setFormData] = useState({
-    Temp: 0,
-    Hum: 0,
+    Location:"mumbai",
     Moist: 0,
     Soil: 0,
     Crop: 0,
@@ -35,8 +34,7 @@ const FertilizerForm = () => {
 
     await axios
       .post("http://127.0.0.1:5000/fertilizer-predict", {
-        Temp: Number(formData.Temp),
-        Hum: Number(formData.Hum),
+        location: formData.Location,
         Moist: Number(formData.Moist),
         Soil: Number(formData.Soil),
         Crop: Number(formData.Crop),
@@ -56,8 +54,7 @@ const FertilizerForm = () => {
         console.log(error);
       });
     setFormData({
-      Temp: 0,
-      Hum: 0,
+      Location: formData.Location,
       Moist: 0,
       Soil: 0,
       Crop: 0,
@@ -292,45 +289,21 @@ const FertilizerForm = () => {
       <div className="flex-auto px-4 lg:px-10 py-10">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2">
-            <div className="mb-3 mr-2">
+          <div className="mb-3 mr-2">
               <label
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="Temp"
+                htmlFor="Location"
               >
-                Temperature
+                Location
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                id="Temp"
-                type="number"
-                placeholder="temperature"
-                name="Temp"
+                id="Location"
+                placeholder="Location"
+                name="Location"
                 required
-                min="-10"
-                max="50"
                 onChange={handleChange}
-                value={formData.Temp}
-              />
-            </div>
-
-            <div className="mb-3 ml-2">
-              <label
-                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="Hum"
-              >
-                Humidity
-              </label>
-              <input
-                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                id="Hum"
-                type="number"
-                placeholder="Humidity"
-                required
-                min="0"
-                max="100"
-                onChange={handleChange}
-                value={formData.Hum}
-                name="Hum"
+                value={formData.Location}
               />
             </div>
           </div>

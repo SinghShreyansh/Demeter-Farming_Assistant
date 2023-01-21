@@ -9,9 +9,8 @@ const CropForm = () => {
     N: 0,
     P: 0,
     K: 0,
-    Temp: 0,
+    Location: "mumbai",
     PH: 0,
-    Climate: "summer",
   });
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,9 +36,8 @@ const CropForm = () => {
         N: Number(formData.N),
         P: Number(formData.P),
         K: Number(formData.K),
-        Temp: Number(formData.Temp),
+        Location: formData.Location,
         PH: Number(formData.PH),
-        Climate: formData.Climate,
       })
       .then(function (response) {
         setIsDisabled(false);
@@ -56,9 +54,8 @@ const CropForm = () => {
       N: 0,
       P: 0,
       K: 0,
-      Temp: 0,
+      Location: formData.Location,
       PH: 0,
-      Climate: "summer",
     });
   };
   return (
@@ -67,31 +64,31 @@ const CropForm = () => {
         <form onSubmit={handleSubmit} className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              
+
             </div>
             <div className="w-full md:w-1/2 px-3">
-              
+
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              
+
             </div>
             <div className="w-full md:w-1/2 px-3">
-              
+
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              
+
             </div>
             <div className="w-full md:w-1/2 px-3">
-              
+
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
-              
+
             </div>
           </div>
           <div className="flex flex-wrap justify-center mx-3 mb-2">
@@ -113,49 +110,25 @@ const CropForm = () => {
       <div className="flex-auto px-4 lg:px-10 py-10">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2">
-            <div className="mb-3 mr-2">
+          <div className="mb-3 mr-2">
               <label
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="Temp"
+                htmlFor="Location"
               >
-                Temperature
+                Location
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                id="Temp"
-                type="number"
-                placeholder="temperature"
-                name="Temp"
+                id="Location"
+                placeholder="Location"
+                name="Location"
                 required
-                min="-10"
-                max="50"
                 onChange={handleChange}
-                value={formData.Temp}
+                value={formData.Location}
               />
-            </div>
+          </div>
 
-            <div className="mb-3 ml-2">
-              <label
-                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="Climate"
-              >
-                Climate
-              </label>
-              <select
-                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                id="Climate"
-                name="Climate"
-                required
-                onChange={handleChange}
-                value={formData.Climate}
-              >
-                <option value="summer" selected>
-                  Summer
-                </option>
-                <option value="winter">Winter</option>
-                <option value="rainy">Rainy</option>
-              </select>
-            </div>
+
           </div>
           <div className="grid grid-cols-2">
             <div className="mr-2 mb-3">

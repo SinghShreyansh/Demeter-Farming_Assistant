@@ -19,7 +19,7 @@ import os
 from PIL import Image
 import torchvision.transforms.functional as TF
 # import CNN
- 
+
 
 # fruit disease prediction
 
@@ -57,7 +57,7 @@ def model_predict(img_path, model):
     ## Scaling
     x=x/255
     x = np.expand_dims(x, axis=0)
-   
+
 
     # Be careful how your trained model deals with the input
     # otherwise, it won't make correct prediction!
@@ -72,9 +72,9 @@ def model_predict(img_path, model):
     else :
         preds="Woodiness"
 
-        
-    
-    
+
+
+
     return preds
 
 
@@ -87,7 +87,7 @@ def upload():
         # if "file" not in request.files:
         #     return "file not found"
         file = request.files.get("file")
-        
+
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(basepath, 'uploads', secure_filename(file.filename))
         file.save(file_path)
@@ -99,11 +99,11 @@ def upload():
         return result
 
         # # Save the file to ./uploads
-        
+
         # # f.save(file_path)
 
         # # Make prediction
-       
+
     return "hello"
 
 
@@ -259,8 +259,26 @@ def result2():
     if request.method == "POST":
         print(request.json)
         to_predict_list = request.json
+        location = request.json["location"]
+        del to_predict_list["location"]
         to_predict_list = list(to_predict_list.values())
+
+
+        # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
+        api_key = "25a7391eb816518d0639ab3f83a31f42"
+        url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
+        response = requests.get(url)
+        weather_data = response.json()
+
+        print((float(weather_data["list"][0]["main"]["temp"]) - 273.15))
+        Temp = float(weather_data["list"][0]["main"]["temp"]) - 273.15
+        Hum = weather_data["list"][0]["main"]["humidity"]
+        to_predict_list.append(Temp)
+        to_predict_list.append(Hum)
+        print(to_predict_list)
+
         to_predict_list = list(map(int, to_predict_list))
+
         ans = FertilizerPredictor(to_predict_list)
         if ans == 0:
             return "10-26-26"
@@ -276,6 +294,7 @@ def result2():
             return "DAP"
         else:
             return "Urea"
+
 
 
 @app.route("/weather-predict", methods=["POST"])
@@ -367,7 +386,7 @@ def result4():
 @app.route("/forecast", methods=["POST"])
 def forecast():
     # Get the user's location from the form
-    location = request.form["location"]
+    location = request.json["location"]
 
     # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
     api_key = "25a7391eb816518d0639ab3f83a31f42"
