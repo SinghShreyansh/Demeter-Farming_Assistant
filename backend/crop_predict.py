@@ -11,8 +11,6 @@ import openai
 openai.api_key = "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"
 
 
-
-
 class Crop_Predict(object):
     def __init__(self):
         # self.data = data = pd.read_csv('final_new_crop_data_own_repeat.csv')
@@ -125,7 +123,7 @@ class Crop_Predict(object):
 
             lt = []
             image_list = []
-            dict={}
+            dict = {}
             for i in range(10):
                 load_data = self.data[self.data.index == lst[i]]
                 for index, row in load_data.iterrows():
@@ -133,26 +131,22 @@ class Crop_Predict(object):
                         if row["climate"] == climate:
                             lt.append(row["Crop"])
                             response = openai.Image.create(
-                            prompt=row["Crop"],
-                            n=1,
-                            size="256x256",
+                                prompt=row["Crop"],
+                                n=1,
+                                size="256x256",
                             )
                             image_list.append(response["data"][0]["url"])
-            
+
             for i in range(len(lt)):
                 dict[lt[i]] = image_list[i]
 
-            print(dict.keys())
+            newList = []
+            for i in range(len(dict)):
+                newList.append(
+                    {"name": list(dict.keys())[i], "img": list(dict.values())[i]}
+                )
+
+            print(newList)
+            return newList
+
             return dict
-               
-
-
-
-            return dict
-
-
-            
-           
-                
-
-            
