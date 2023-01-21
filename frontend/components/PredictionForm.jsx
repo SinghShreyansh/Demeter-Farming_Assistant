@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import Tables from "pages/admin/predict_table";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
     location : "mumbai"
   });
 
-  const [output, setOutput] = useState(null);
+  const [output, setOutput] = useState([]);
 
   const handleChange = (event) => {
     setFormData((prevState) => {
@@ -27,15 +28,14 @@ const PredictionForm = () => {
         location: formData.location,
       })
       .then(function (response) {
-        // setOutput(response.data.data);
+        setOutput(response.data);
         console.log(response);
-        return;
       })
       .catch(function (error) {
         console.log(error);
       });
     setFormData({
-      location: 0,
+      location: formData.location,
     });
   };
 
@@ -80,7 +80,7 @@ const PredictionForm = () => {
               role="alert"
             >
               <span class="font-medium">Output:</span>
-              {output}
+             <Tables TableData={output}/>
             </div>
           ) : (
             <div className="flex justify-center">
