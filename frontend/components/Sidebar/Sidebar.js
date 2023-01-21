@@ -29,25 +29,32 @@ export default function Sidebar() {
   }, []);
   return (
     <>
-      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
+      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-slate-300 flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
           <button
             className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
             type="button"
-            onClick={() => setCollapseShow("bg-white m-2 py-3 px-6")}
+            onClick={() => setCollapseShow("bg-slate-300 m-2 py-3 px-6")}
           >
             <i className="fas fa-bars"></i>
           </button>
           {/* Brand */}
-          <Link href="/">
-            <a
-              href="#pablo"
-              className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            >
-              Demeter
-            </a>
-          </Link>
+          <div className="flex flex-row justify-around ">
+          <img
+                src="https://res.cloudinary.com/atharva7/image/upload/v1664640503/samples/plantifylogo_ez5l1p.png"
+                alt="up"
+                className="w-16 h-16 object-cover rounded-full cursor-pointer mt-1"
+            />
+            <Link href="/" className="pt-2">
+              <a
+                className="text-blueGray-700 text-xl font-bold leading-relaxed inline-block mr-4 py-4 whitespace-nowrap uppercase "
+                href="/"
+              >
+                Demeter
+              </a>
+            </Link>
+            </div>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
@@ -70,10 +77,10 @@ export default function Sidebar() {
                 <div className="w-6/12">
                   <Link href="/">
                     <a
-                      href="#pablo"
+                      href="/"
                       className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     >
-                      Notus NextJS
+                      DEMETER
                     </a>
                   </Link>
                 </div>
@@ -112,7 +119,7 @@ export default function Sidebar() {
                 <Link href="/disease">
                   <a
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "text-sm uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/disease") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
@@ -135,7 +142,7 @@ export default function Sidebar() {
                 <Link href="/crop">
                   <a
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "text-sm uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/crop") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
@@ -158,7 +165,7 @@ export default function Sidebar() {
                 <Link href="/fertilizer">
                   <a
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "text-sm uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/fertilizer") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
@@ -181,7 +188,7 @@ export default function Sidebar() {
                 <Link href="/shop">
                   <a
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "text-sm uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/shop") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
@@ -205,7 +212,7 @@ export default function Sidebar() {
                   <a
                     href="#pablo"
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "text-sm uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/weather") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")

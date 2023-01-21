@@ -24,17 +24,24 @@ export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
+      <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-slate-300 shadow">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link href="/">
+            <div className="flex flex-row justify-around space-x-1">
+          <img
+                src="https://res.cloudinary.com/atharva7/image/upload/v1664640503/samples/plantifylogo_ez5l1p.png"
+                alt="up"
+                className="w-16 h-16 object-cover rounded-full cursor-pointer mt-1"
+            />
+            <Link href="/" className="pt-2">
               <a
-                className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+                className="text-blueGray-700 text-xl font-bold leading-relaxed inline-block mr-4 py-4 whitespace-nowrap uppercase px-2"
                 href="#pablo"
               >
                 Demeter
               </a>
             </Link>
+            </div>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -67,7 +74,7 @@ export default function Navbar(props) {
               </li> */}
               <li className="flex items-center">
                 <Link href="/">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Home
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
@@ -75,7 +82,7 @@ export default function Navbar(props) {
               </li>
               <li className="flex items-center">
                 <Link href="/disease">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Disease
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
@@ -83,7 +90,7 @@ export default function Navbar(props) {
               </li>
               <li className="flex items-center">
                 <Link href="/crop">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Crop
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
@@ -91,7 +98,7 @@ export default function Navbar(props) {
               </li>
               <li className="flex items-center">
                 <Link href="/fertilizer">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Fertilizer
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
@@ -99,7 +106,7 @@ export default function Navbar(props) {
               </li>
               <li className="flex items-center">
                 <Link href="/shop">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Fertilizer Shop
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
@@ -107,17 +114,21 @@ export default function Navbar(props) {
               </li>
               <li className="flex items-center">
                 <Link href="/weather">
-                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold">
                     Weather
                     {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
                   </a>
                 </Link>
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center h-12">
                 <div
-                  className="px-3 text-xs uppercase font-bold"
+                  className="px-3 text-xs uppercase flex flex-row pb-1 font-bold"
                   id="google_translate_element"
-                ></div>
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 py-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
+                </svg>
+                </div>
               </li>
 
               {/* <li className="flex items-center">
