@@ -29,13 +29,13 @@ export default function Index() {
                   </a>
                 </Link>
 
-                <a
+                {/* <a
                   href="https://github.com/sarvesh2902/Hackanova_CTRL-ALT-ELITE"
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                   target="_blank"
                 >
                   Github Repo
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -520,13 +520,13 @@ export default function Index() {
                   </a>
                 </Link>
 
-                <a
+                {/* <a
                   href="https://github.com/sarvesh2902/Hackanova_CTRL-ALT-ELITE"
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                   target="_blank"
                 >
                   Github Repo
-                </a>
+                </a> */}
               </div>
               <div className="text-center mt-16"></div>
             </div>
