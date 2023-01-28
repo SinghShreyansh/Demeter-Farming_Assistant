@@ -16,3 +16,4 @@ tensorflow
 openai
 requests
 PIL
+python-dotenv

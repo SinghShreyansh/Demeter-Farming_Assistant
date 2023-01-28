@@ -334,7 +334,7 @@ const FertilizerForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="N"
               >
-                Nitrogen
+                Nitrogen (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -356,7 +356,7 @@ const FertilizerForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="K"
               >
-                Potassium
+                Potassium (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -377,7 +377,7 @@ const FertilizerForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="P"
               >
-                Phosphorus
+                Phosphorus (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"

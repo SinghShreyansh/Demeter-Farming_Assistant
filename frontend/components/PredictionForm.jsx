@@ -2,12 +2,15 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import Tables from "pages/admin/predict_table";
+import ReactLoading from "react-loading";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
     location: "mumbai",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [output, setOutput] = useState(null);
 
   const handleChange = (event) => {
@@ -21,6 +24,8 @@ const PredictionForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsDisabled(true);
+    setIsLoading(true);
     console.log(formData);
 
     await axios
@@ -29,6 +34,8 @@ const PredictionForm = () => {
       })
       .then(function (response) {
         setOutput(response.data);
+        setIsDisabled(false);
+        setIsLoading(false);
         console.log(response);
       })
       .catch(function (error) {
@@ -43,7 +50,7 @@ const PredictionForm = () => {
     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
       <div className="flex-auto px-4 lg:px-10 py-10">
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2">
+          <div className="">
             <div className="mb-3 mr-2">
               <label
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -64,12 +71,22 @@ const PredictionForm = () => {
             </div>
           </div>
 
-          <div className="text-center mt-6">
+          <div className="flex justify-center mt-6">
             <button
-              className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
               type="submit"
+              disabled={isDisabled}
+              className="w-96 h-12 flex justify-center items-center text-md text-white bg-blueGray-800 hover:bg-blueGray-800 transition-all font-medium rounded-lg px-5 py-2.5 text-center"
             >
-              Submit
+              {isLoading ? (
+                <ReactLoading
+                  type="bars"
+                  color="#ffffff"
+                  height={25}
+                  width={25}
+                />
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
 
