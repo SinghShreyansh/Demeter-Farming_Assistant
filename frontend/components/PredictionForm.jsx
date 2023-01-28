@@ -6,7 +6,7 @@ import ReactLoading from "react-loading";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
-    location: "mumbai",
+    location: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
