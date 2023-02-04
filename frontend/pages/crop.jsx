@@ -36,6 +36,7 @@ export default function Crop() {
     </Admin>
   );
 }
+
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   let userId = null;

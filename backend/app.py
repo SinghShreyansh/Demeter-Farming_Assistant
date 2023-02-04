@@ -21,6 +21,10 @@ import torchvision.transforms.functional as TF
 import CNN
 import openai
 import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 # fruit disease prediction
@@ -263,7 +267,7 @@ def result2():
         to_predict_list = list(to_predict_list.values())
 
         # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
-        api_key = "25a7391eb816518d0639ab3f83a31f42"
+        api_key = os.getenv("OPEN_WEATHER_API_KEY")
         url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
         response = requests.get(url)
         weather_data = response.json()
@@ -413,7 +417,7 @@ def submit():
         supplement_image_url = supplement_info["supplement image"][pred]
         supplement_buy_link = supplement_info["buy link"][pred]
         print(pred)
-        openai.api_key = "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"
+        openai.api_key = os.getenv("OPENAI_API_KEY")
         instructions = openai.Completion.create(
             model="text-davinci-003",
             prompt=f"how to use {supplement_name}",
@@ -451,7 +455,7 @@ def forecast():
     location = request.json["location"]
 
     # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
-    api_key = "25a7391eb816518d0639ab3f83a31f42"
+    api_key = os.getenv("OPEN_WEATHER_API_KEY")
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
     response = requests.get(url)
     weather_data = response.json()
@@ -482,7 +486,7 @@ def forecast():
         climate = "winter"
 
     temperature = forecast[0]["temperature"]
-    openai.api_key = "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"
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     instructions = openai.Completion.create(
         model="text-davinci-003",
         prompt=f"aggricultural conditions based on {temperature} kelvin and {climate} climate",

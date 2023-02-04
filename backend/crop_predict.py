@@ -1,5 +1,5 @@
 from flask import request
-
+import os
 import pandas as pd
 import numpy as np
 from sklearn.utils import shuffle
@@ -10,7 +10,7 @@ import datetime
 
 import openai
 
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY_IMAGE")
 
 
 class Crop_Predict(object):
@@ -46,7 +46,7 @@ class Crop_Predict(object):
             print(location)
 
             # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
-            api_key = "25a7391eb816518d0639ab3f83a31f42"
+            api_key = os.getenv("OPEN_WEATHER_API_KEY")
             url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
             response = requests.get(url)
             weather_data = response.json()
@@ -60,18 +60,17 @@ class Crop_Predict(object):
             # Get the current hemisphere
             # You can either hardcode the hemisphere as 'north' or 'south'
             # or you can use the latitude of the location to determine the hemisphere
-            hemisphere = 'north'
+            hemisphere = "north"
 
             # Determine the season based on the month and hemisphere
-            if (month >= 3 and month <= 6) and hemisphere == 'north':
+            if (month >= 3 and month <= 6) and hemisphere == "north":
                 climate = 1
-            elif (month >= 7 and month <= 10) and hemisphere == 'north':
+            elif (month >= 7 and month <= 10) and hemisphere == "north":
                 climate = 3
-            elif (month ==11 or month ==12 or month ==1 or month==2) and hemisphere == 'north':
+            elif (
+                month == 11 or month == 12 or month == 1 or month == 2
+            ) and hemisphere == "north":
                 climate = 2
-
-
-
 
             # if (
             #     len(city_name) == 0

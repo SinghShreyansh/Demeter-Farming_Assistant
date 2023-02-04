@@ -110,7 +110,7 @@ const CropForm = () => {
       <div className="flex-auto px-4 lg:px-10 py-10">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2">
-          <div className="mb-3 mr-2">
+            <div className="mb-3 mr-2">
               <label
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="Location"
@@ -126,9 +126,7 @@ const CropForm = () => {
                 onChange={handleChange}
                 value={formData.Location}
               />
-          </div>
-
-
+            </div>
           </div>
           <div className="grid grid-cols-2">
             <div className="mr-2 mb-3">
@@ -157,7 +155,7 @@ const CropForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="N"
               >
-                Nitrogen
+                Nitrogen (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -179,7 +177,7 @@ const CropForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="K"
               >
-                Potassium
+                Potassium (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -200,7 +198,7 @@ const CropForm = () => {
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="P"
               >
-                Phosphorus
+                Phosphorus (in PPM)
               </label>
               <input
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
